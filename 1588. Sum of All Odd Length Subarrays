@@ -1,0 +1,100 @@
+package leedtcode.May.CW2;
+
+/*1588. Sum of All Odd Length Subarrays
+        Easy
+
+        Given an array of positive integers arr, calculate the sum of all possible odd-length subarrays.
+
+        A subarray is a contiguous subsequence of the array.
+
+        Return the sum of all odd-length subarrays of arr.
+
+
+
+        Example 1:
+
+        Input: arr = [1,4,2,5,3]
+        Output: 58
+        Explanation: The odd-length subarrays of arr and their sums are:
+        [1] = 1
+        [4] = 4
+        [2] = 2
+        [5] = 5
+        [3] = 3
+        [1,4,2] = 7
+        [4,2,5] = 11
+        [2,5,3] = 10
+        [1,4,2,5,3] = 15
+        If we add all these together we get 1 + 4 + 2 + 5 + 3 + 7 + 11 + 10 + 15 = 58
+
+        Example 2:
+
+        Input: arr = [1,2]
+        Output: 3
+        Explanation: There are only 2 subarrays of odd length, [1] and [2]. Their sum is 3.*/
+public class SumOfOddSubArrays {
+    static int OddLengthSum(int[] arr) {
+
+        //Time Complexity: O(N3)
+        //Auxiliary Space: O(1)
+        // Stores the sum
+        int sum = 0;
+
+        // Size of array
+        int l = arr.length;
+
+        // Traverse the array
+        for (int i = 0; i < l; i++) {
+
+            // Generate all subarray of
+            // odd length
+            for (int j = i; j < l; j += 2) {
+                for (int k = i; k <= j; k++) {
+
+                    // Add the element to sum
+                    sum += arr[k];
+                }
+            }
+        }
+
+        // Return the final sum
+        return sum;
+    }
+
+    // Driver Code
+    public static void main(String[] args) {
+
+        // Given array arr[]
+        int[] arr = {1, 5, 3, 1, 2};
+
+        // Function call
+        System.out.print(OddLengthSum(arr));
+        System.out.print(OddLengthSum2(arr));
+    }
+
+    static int OddLengthSum2(int[] arr) {
+/*        For any element at index idx there are (idx + 1) choices on the left side of it and (N – idx) choices on the right side of it.
+            Therefore, for any element arr[i], the count of arr[i] is (i + 1) * (N – i) in all the subarrays.
+        So, for an element arr[i], there are ((i + 1) * (N – i) + 1) / 2 sub-arrays with odd length.
+            Finally, arr[i] will have a total of ((i + 1) * (n – i) + 1) / 2 frequency in the sum.*/
+        //Time Complexity: O(N)
+        //Auxiliary Space: O(1)
+        // Stores the sum
+        int sum = 0;
+
+        // Size of array
+        int l = arr.length;
+
+        // Traverse the given array arr[]
+        for (int i = 0; i < l; i++) {
+
+            // Add to the sum for each
+            // contribution of the arr[i]
+            sum += (((i + 1) * (l - i) +
+                    1) / 2) * arr[i];
+        }
+
+        // Return the final sum
+        return sum;
+    }
+}
