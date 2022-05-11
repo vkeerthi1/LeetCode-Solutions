@@ -1,0 +1,69 @@
+package leedtcode.May.CW3;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/*242. Valid Anagram
+Easy
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+
+
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Example 2:
+
+Input: s = "rat", t = "car"
+Output: false
+
+
+
+Constraints:
+
+    1 <= s.length, t.length <= 5 * 104
+    s and t consist of lowercase English letters.
+*/
+public class ValidAnagram {
+    public static void main(String[] args) {
+
+        // Given array arr[]
+        //String s =  "anagram", t = "nagaram";
+        String s =  "rat", t = "car";
+        System.out.print("---------------"+isAnagram(s,t));
+        System.out.print("---------------"+isAnagram2(s,t));
+    }
+    public static boolean isAnagram(String s, String t) {
+        int[] alphabet = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            alphabet[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < t.length(); i++) {
+            alphabet[t.charAt(i) - 'a']--;
+        }
+        for (int i : alphabet)
+             if (i != 0)
+                 return false;
+        return true;
+    }
+
+    public static boolean isAnagram2(String s, String t) {
+        if (s==null && t==null) return true;
+        else if (s==null || t==null) return false;
+        else if (s.length() != t.length()) return false;
+
+        final Map<Integer, Integer> dict = new HashMap<>();
+        s.codePoints().forEach(code -> dict.put(code , dict.getOrDefault(code,0)+1));
+        t.codePoints().forEach(code -> dict.put(code , dict.getOrDefault(code,0) - 1));
+
+        for(int count : dict.values()) {
+            if (count<0) return false;
+        }
+        return true;
+    }
+}
