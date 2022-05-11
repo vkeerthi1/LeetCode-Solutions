@@ -1,0 +1,78 @@
+package leedtcode.May.CW3;
+
+/*709. To Lower Case
+Easy
+
+Given a string s, return the string after replacing every uppercase letter with the same lowercase letter.
+
+
+
+Example 1:
+
+Input: s = "Hello"
+Output: "hello"
+
+Example 2:
+
+Input: s = "here"
+Output: "here"
+
+// 2) by ascii concept
+
+// Ascii of small letters a = 97
+// b = 98
+// c = 99
+// .
+// .
+// z = 122
+
+// Ascii of capital letters A = 65
+// B = 66
+// C = 67
+// .
+// .
+// Z = 90
+
+// So, for converting capitals to small we have to add 32 in capital ascii's numbers
+// Lets say for example B so ascii of B is 66 so after adding 32 we get 98 which is ascii of small b
+*/
+public class ToLowerCase {
+    public static void main(String[] args) {
+
+        // Given array arr[]
+        String s = "heLLo";
+        System.out.print("---------------"+toLowerCase(s));
+        System.out.print("---------------"+toLowerCase2(s));
+    }
+    public static String toLowerCase(String s) {
+        StringBuilder ans = new StringBuilder();
+
+        for(int i = 0; i < s.length(); i++){
+            int value = (int)(s.charAt(i)); // first we take out integer value of that charcter
+            if(value > 64 && value < 91) { // we start for loop from 0 so we check for 64 and 91
+                value = value + 32;       // to convert capital to small we add 32
+            }
+            ans.append((char)(value)); // after getting ascii value finally we add that particular char to stringbuilder
+        }
+        return ans.toString();
+    }
+    public static String toLowerCase2(String s) {
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if (isCapitalLetter(chars[i])) {
+                chars[i] = charToLowerCase(chars[i]);
+            }
+        }
+        return String.valueOf(chars);
+    }
+
+    private static boolean isCapitalLetter(char ch) {
+        return ch >= 'A' && ch <= 'A' + 25;
+    }
+
+    // the difference between 'A' and your current char will be always the same
+    // as the difference between 'a' and the lower case char you are looking for
+    private static char charToLowerCase(char ch) {
+        return (char) ('a' + (ch - 'A'));
+    }
+}
